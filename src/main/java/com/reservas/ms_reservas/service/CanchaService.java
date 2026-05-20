@@ -46,6 +46,7 @@ public class CanchaService {
         cancha.setTipo(canchaActualizada.getTipo());
         cancha.setPrecioHora(canchaActualizada.getPrecioHora());
         cancha.setDescripcion(canchaActualizada.getDescripcion());
+        cancha.setActiva(canchaActualizada.getActiva() != null ? canchaActualizada.getActiva() : cancha.getActiva());
         log.info("Updating cancha with id: {}", id);
         return canchaRepository.save(cancha);
     }
@@ -58,7 +59,7 @@ public class CanchaService {
     }
 
     public void eliminar(Long id) {
-        obtener(id); // Validar que existe
+        obtener(id);
         log.info("Deleting cancha with id: {}", id);
         canchaRepository.deleteById(id);
     }
