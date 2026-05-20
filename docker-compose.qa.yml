@@ -1,0 +1,26 @@
+services:
+  ms-reservas:
+    build:
+      context: .
+      dockerfile: Dockerfile.qa
+    image: reservas-ms-reservas:qa
+    container_name: reservas-qa-ms-reservas
+    restart: unless-stopped
+    environment:
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:postgresql://reservas-qa-postgres:5432/reservasdb_qa
+      SPRING_DATASOURCE_USERNAME: reservas
+      SPRING_DATASOURCE_PASSWORD: reservas123
+      JPA_HIBERNATE_DDL_AUTO: update
+      SHOW_SQL: true
+    ports:
+      - "8091:8081"
+    networks:
+      reservas-qa-net:
+        aliases:
+          - ms-reservas
+
+networks:
+  reservas-qa-net:
+    external: true
+    name: reservas-qa-net
